@@ -335,7 +335,7 @@ end $$
 
 delimiter ;
 
-call spInsertCliente('Pimpão', 325, null, 12345051, 12345678911, 12345678, 0, '2000-12-10', 'Av. Brasil', 'Lapa', 'Campinas', 'SP');
+call spInsertCliente('Pimpão', 325, null, 12345051, 12345678911, 12345678, 0, '2000-10-12', 'Av. Brasil', 'Lapa', 'Campinas', 'SP');
 call spInsertCliente('Disney Chaplin', 89, 'Ap. 12', 12345053, 12345678912, 12345679, 0, '2001-11-21', 'Av. Paulista', 'Penha', 'Rio de Janeiro', 'RJ');
 call spInsertCliente('Marciano', 744, null, 12345054, 12345678913, 12345680, 0, '2001-06-01', 'Rua Ximbú', 'Penha', 'Rio de Janeiro', 'RJ');
 call spInsertCliente('Lança Perfume', 128, null, 12345059, 12345678914, 12345681, 'X', '2004-04-05', 'Rua Veia', 'Jardim Santa Isabel', 'Cuiabá', 'MT');
@@ -678,13 +678,53 @@ describe tbprodutohistorico;
 
 -- Exercicio 32
 /*
-	Sintaxe:
+	-- Sintaxe:
     select <campos>
     from <tabelaA>
     inner join <tabelaB>
-    on tabelaA.PrimaryKey = tabelaB.ForeignKey;
+    on tabelaA.PrimaryKey = tabelaB.ForeignKey [;]
+    -- Para fazer o Inner Join com mais tabelas é só colocar:
+    inner join <tabelaC>
+    on tabelaA.PrimaryKey = tabelaC.ForeignKey [;] -- Tbm pode ser tabelaB.PrimaryKey = tabelaC.ForeignKey
 */
 select *
 from tbCliente
 inner join tbClientePF
 on tbCliente.IdCli = tbClientePF.IdCli;
+
+-- Exercício 33
+select *
+from tbCliente
+inner join tbClientePJ
+on tbCliente.IdCli = tbClientePJ.IdCli;
+
+-- Exercicio 34
+describe tbClientePJ;
+select tbCliente.IdCli, -- Como o IdCli tem o mesmo nome na tbCliente e tbClientePF precisa especificar de onde vem
+	NomeCli, 
+    CNPJ, 
+    IE, 
+    tbClientePJ.IdCli
+from tbCliente
+inner join tbClientePJ
+on tbCliente.IdCli = tbClientePJ.IdCli;
+
+-- Exercicio 35
+select tbCliente.IdCli as "Código", 
+	NomeCli as "Nome", 
+    CPF as "CPF", 
+    RG as "RG", 
+    Nasc as "Data de Nascimento"
+from tbCliente 
+inner join tbClientePF
+on tbCliente.IdCli = tbClientePF.IdCli;
+
+-- Exercicio 36
+select *
+from tbCliente
+inner join tbClientePJ
+on tbCliente.IdCli = tbClientePJ.IdCli
+inner join tbEndereco
+on tbCliente.CepCli = tbEndereco.CEP;
+
+-- Exercicio 37
