@@ -65,7 +65,8 @@
 </body>
 </html>
 <style>
-.row{
-  width:100vw;
+
+body{
+  flex-direction:column;
 }
 </style>
