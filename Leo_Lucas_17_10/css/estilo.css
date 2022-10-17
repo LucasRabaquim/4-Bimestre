@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    height: center;
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    background-color: #ecf0f3;
+}
+
+.box{
+    position: absolute;
+    left: 20px;
+    background-color: transparent;
+    padding: 15px;
+    border-radius: 15px;
+    background:transparent;
+    margin-left: 600px;
+    width: 250px;
+
+}
+
+fieldset{
+    border: 3px solid transparent;
+}
+
+legend{
+    border:1px solid rgb(163, 11, 228);
+    padding: 10px;
+    text-align: center;
+    background-color: rgb(163, 11, 228);
+    border-radius: 10px;
+    color:rgb(255, 255, 255)
+}
+
+.inputGuarda{
+    position: relative;
+    color: #000000;
+}
+
+
+.inputUser{
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgb(0, 0, 0);
+    outline: none;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    width: 100%;
+    letter-spacing: 2px;
+}
+
+#registro{
+    width: 240px;
+    height: 450px;
+    margin-top: 130px;
+    padding: 20px 35px 35px 35px;
+    border-radius: 40px;
+    background-color: #ecf0f3;
+    box-shadow: 13px 13px 20px #cbced1, 
+    13px -13px 20px #fff;
+}
+
+.labelinput{
+    position: absolute;
+    top:0px;
+    left:0px;
+    pointer-events: none;
+    transition: .5px;
+}
+
+.inputUser:focus ~.labelinput, .inputUser:valid ~ .labelinput{
+    top:-20px;
+    font-size: 12px;
+    color: rgb(163, 11, 228)
+}
+
+#datnascimento
+{
+    border: none;
+    background: linear-gradient(to right, rgb(163, 11, 228), rgb(118, 49, 147));
+    color:white;
+    padding: 8px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 15px;
+}
+
+#submite{
+    background: linear-gradient(to right, rgb(163, 11, 228), rgb(118, 49, 147));    width: 100%;
+    border: none;
+    padding: 15px;
+    font-size: 15px;
+    color: white;
+    border-radius: 18px;
+}
+
+#submite:focus{
+    background: linear-gradient(to right, #FF6f61ff, rgb(208, 63, 50));
+}
+
