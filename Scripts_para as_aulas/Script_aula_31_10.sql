@@ -1,4 +1,4 @@
-drop database dbdistribuidora;
+-- drop database dbdistribuidora;
 create database dbdistribuidora;
 use dbdistribuidora;
 
@@ -483,7 +483,7 @@ cALL spInsertNotaFiscal(360,"Lança Perfume","29-08-2022");
 CALL spInsertProduto(12345678910130, "Camiseta de Poliéster", 35.61, 100);
 CALL spInsertProduto(12345678910131, "Blusa Frio Moletom", 200.00, 100);
 CALL spInsertProduto(12345678910132, "Vestido Decote Redondo", 144.00, 50);
-
+select * from tbproduto;
 -- select * from tbProduto;
 
 -- Exercicio 13
@@ -603,7 +603,9 @@ call spInsertVenda("Disney Chaplin",12345678910111,1);
 select * from tbVenda;
 select * from tbItemVenda;
 select * from tbProduto;
-select * from tbCliente;
+select * from tbCliente; 
+select * from tbendereco; 
+select * from tbbairro;
 
 -- Exercicio 23
 
@@ -711,8 +713,7 @@ inner join tbClientePF
 on tbCliente.IdCli = tbClientePF.IdCli;
 
 -- Exercicio 36
-select *
-from tbCliente
+select * from tbCliente
 inner join tbClientePJ
 on tbCliente.IdCli = tbClientePJ.IdCli
 inner join tbEndereco
@@ -727,10 +728,17 @@ inner join tbCidade on tbEndereco.IdCidade = tbCidade.IdCidade
 inner join tbUf on tbEndereco.IdUf = tbUf.IdUf;
 
 -- Exercicio 38
+
 delimiter $$
 create procedure spSelectClientePFisicaId(vIdCli int)
 begin
-	select tbCliente.IdCli as "Código", NomeCli as "Nome", CPF as "CPF", RG as "RG", Nasc as "Data de Nascimento", logradouro as "Logradouro", NumEnd as "Número", CompEnd as "Complemento", Bairro as "Bairro", Cidade as "Cidade", Uf as "UF"
+if exists(select * from tbclientePF where IdCli = vIdCli) then
+	select tbCliente.IdCli as "Código",
+    NomeCli as "Nome", CPF as "CPF",
+    RG as "RG", Nasc as "Data de Nascimento",
+    logradouro as "Logradouro", NumEnd as "Número",
+    CompEnd as "Complemento", Bairro as "Bairro",
+    Cidade as "Cidade", Uf as "UF"		
 	from tbCliente 
 	inner join tbClientePF on tbCliente.IdCli = tbClientePF.IdCli
     inner join tbEndereco on tbEndereco.CEP = tbCliente.CepCli
@@ -738,22 +746,21 @@ begin
 	inner join tbCidade on tbEndereco.IdCidade = tbCidade.IdCidade
 	inner join tbUf on tbEndereco.IdUf = tbUf.IdUf
     where tbCliente.idCli = vIdCli;
+    else select("Cliente não existe");
+    end if;
+    
 end
 $$
 delimiter ;
 call spSelectClientePFisicaId(2);
-call spSelectClientePFisicaId(2);
+call spSelectClientePFisicaId(7);
 
 -- Exercício 39
 select * from tbProduto
 left join tbItemVenda on tbProduto.CodigoBarras = tbItemVenda.CodigoBarras;
--- where tbItemVenda.CodigoBarras is null;
 
 -- Exercício 40
-show tables;
-describe tbCompra;
-describe tbFornecedor;
-select NotaFiscal, DataCompra, ValorTotal, QtdTotal, IdCli as "Codigo", tbFornecedor.IdFornecedor as "Codigo", CNPJ, NomeFornecedor as "Nome", Telefone from tbCompra 
+select NotaFiscal, DataCompra, ValorTotal, QtdTotal, tbCompra.IdFornecedor as "Codigo", tbFornecedor.IdFornecedor as "Codigo", CNPJ, NomeFornecedor as "Nome", Telefone from tbCompra 
 right join tbFornecedor on tbCompra.IdFornecedor = tbFornecedor.IdFornecedor;
 
 -- Exercício 41
@@ -768,9 +775,15 @@ left join tbItemVenda on tbVenda.CodigoVenda = tbItemVenda.CodigoVenda
 left join tbProduto on tbItemVenda.CodigoBarras = tbProduto.CodigoBarras
 where tbVenda.IdCli is not null order by NomeCli;
 
+
+
 -- Exercício 43
-select distinct Bairro from tbBairro
+select  distinct Bairro from tbBairro
 left join tbEndereco on tbBairro.IdBairro = tbEndereco.IdBairro
 left join tbCliente on tbEndereco.CEP = tbCliente.CepCli
 left join tbVenda on tbCliente.IdCli = tbVenda.IdCli
-where tbVenda.IdCli is null;
+where tbCliente.IdCli is null;
+
+
+
+
