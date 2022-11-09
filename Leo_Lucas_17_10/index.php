@@ -66,9 +66,10 @@
       echo "<tr>";
       foreach($campos as &$nome)
         echo "<th>".$exibe[$nome]."</th>";
-        
+        /* <td><a href='alterar.php?cd_alt=$resultado['registro']'>
+        alterar</a></td><td><a href='excluir.php?cd_excluir=$resultado['registro']'>excluir</a><td> */
       echo "<th><img style='width:35px; height:auto;' src='https://www.d-velop.de/wp-content/uploads/sites/10/2020/09/icon-digital-signieren-lila.png'></th>";
-      echo "<th><img style='width:35px; height:auto;' src='https://images.vexels.com/media/users/3/153297/isolated/preview/b394f1c0280879beb70bc51813fe1f41---cone-de-tra--o-colorido-de-lixeira-by-vexels.png'></th>";
+      echo "<th><a href='excluir.php?cd_excluir=$exibe[Registro]'><img style='width:35px; height:auto;' src='https://images.vexels.com/media/users/3/153297/isolated/preview/b394f1c0280879beb70bc51813fe1f41---cone-de-tra--o-colorido-de-lixeira-by-vexels.png'></a></th>";
       echo "</tr>";
     }
     echo "</table>";
