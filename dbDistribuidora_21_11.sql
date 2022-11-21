@@ -833,3 +833,18 @@ select * from vwtbclientepf;
 -- Exercicio 49
 select IdCli as 'Código', NomeCli as 'Cliente', CPF, RG, Rg_Dig as 'Dig', Nasc as 'Nascimento' from vwtbclientepf;
 
+
+-- Exercicio 50
+alter view vwtbclientepj as
+select tbCliente.IdCli as 'Id', NomeCli, CNPJ, IE, CepCli as 'CEP', logradouro as 'Logradouro', NumEnd, CompEnd, Bairro, Cidade, Uf as 'UF' from tbCliente
+inner join tbClientePJ on tbCliente.IdCli = tbClientePJ.IdCli
+inner join tbEndereco on tbCliente.CepCli = tbEndereco.CEP
+inner join tbBairro on tbEndereco.IdBairro = tbBairro.IdBairro
+inner join tbCidade on tbEndereco.IdCidade = tbCidade.IdCidade
+inner join tbUf on tbEndereco.IdUf = tbUf.IdUf;
+select * from vwtbclientepj;
+
+-- Exercício 51
+select Id, NomeCli, CEP, Logradouro, NumEnd, CompEnd, Bairro, Cidade, Uf from vwtbclientepj
+union
+select IdCli, NomeCli, CEP, Logradouro, NumEnd, CompEnd, Bairro, Cidade, Uf from vwtbclientepf;
